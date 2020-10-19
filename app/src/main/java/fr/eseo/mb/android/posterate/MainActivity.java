@@ -22,6 +22,7 @@ import fr.eseo.mb.android.posterate.data.model.LoggedInUser;
 public class MainActivity extends AppCompatActivity {
 
     //test 1
+    // Pong
 
     private AppBarConfiguration mAppBarConfiguration;
 
