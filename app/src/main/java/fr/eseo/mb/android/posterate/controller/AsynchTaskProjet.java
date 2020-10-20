@@ -53,6 +53,7 @@ public class AsynchTaskProjet extends AsyncTask<URL, Void, ArrayList<Project>> {
                 e.printStackTrace();
             }
             if (projectList != null && check.equals("OK")) {
+                SaveOnFile.setProjets(result,fragment.getActivity().getApplicationContext());
                 return projectList;
             }
         }

@@ -3,17 +3,27 @@ package fr.eseo.mb.android.posterate.controller;
 import android.content.Context;
 import android.util.Log;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+
+import fr.eseo.mb.android.posterate.data.model.Project;
+import fr.eseo.mb.android.posterate.data.model.User;
 
 public class SaveOnFile {
-    public static int lenghLastText = -1;
+    public static int lenghLastTextNotes = -1;
+    public static int lenghLastTextProjects = -1;
+    public static int lenghLastTextProjectsID = -1;
 
-    public static boolean writeOnFile(String fileName, String text, Context context) {
+    public static boolean writeOnFileNotes(String fileName, String text, Context context) {
         boolean isTheSame = false;
         try {
             // catches IOException below
@@ -49,7 +59,7 @@ public class SaveOnFile {
             // Check if we read back the same chars that we had written out
             isTheSame = textString.equals(readString);
             if (isTheSame) {
-                lenghLastText = textString.length();
+                lenghLastTextNotes = textString.length();
             }
             Log.i("File Reading stuff", "success = " + isTheSame);
         } catch (IOException ioe) {
@@ -57,6 +67,97 @@ public class SaveOnFile {
         }
         return isTheSame;
     }
+
+    public static boolean writeOnFileProjectID(String fileName, String text, Context context) {
+        boolean isTheSame = false;
+        try {
+            // catches IOException below
+            final String textString = new String(text);
+            /* We have to use the openFileOutput()-method
+             * the ActivityContext provides, to
+             * protect your file from others and
+             * This is done for security-reasons.
+             * We chose MODE_WORLD_READABLE, because
+             *  we have nothing to hide in our file */
+            FileOutputStream fOut = context.getApplicationContext().openFileOutput(fileName, Context.MODE_PRIVATE);
+            OutputStreamWriter osw = new OutputStreamWriter(fOut);
+            // Write the string to the file
+            osw.write(textString);
+            /* ensure that everything is
+             * really written out and close */
+            osw.flush();
+            osw.close();
+//Reading the file back...
+            /* We have to use the openFileInput()-method
+             * the ActivityContext provides.
+             * Again for security reasons with
+             * openFileInput(...) */
+            FileInputStream fIn = context.getApplicationContext().openFileInput(fileName);
+            InputStreamReader isr = new InputStreamReader(fIn);
+            /* Prepare a char-Array that will
+             * hold the chars we read back in. */
+            char[] inputBuffer = new char[textString.length()];
+            // Fill the Buffer with data from the file
+            isr.read(inputBuffer);
+            // Transform the chars to a String
+            String readString = new String(inputBuffer);
+            // Check if we read back the same chars that we had written out
+            isTheSame = textString.equals(readString);
+            if (isTheSame) {
+                lenghLastTextProjectsID = textString.length();
+            }
+            Log.i("File Reading stuff", "success = " + isTheSame);
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+        return isTheSame;
+    }
+
+    public static boolean writeOnFileProjects(String fileName, String text, Context context) {
+        boolean isTheSame = false;
+        try {
+            // catches IOException below
+            final String textString = new String(text);
+            /* We have to use the openFileOutput()-method
+             * the ActivityContext provides, to
+             * protect your file from others and
+             * This is done for security-reasons.
+             * We chose MODE_WORLD_READABLE, because
+             *  we have nothing to hide in our file */
+            FileOutputStream fOut = context.getApplicationContext().openFileOutput(fileName, Context.MODE_PRIVATE);
+            OutputStreamWriter osw = new OutputStreamWriter(fOut);
+            // Write the string to the file
+            osw.write(textString);
+            /* ensure that everything is
+             * really written out and close */
+            osw.flush();
+            osw.close();
+//Reading the file back...
+            /* We have to use the openFileInput()-method
+             * the ActivityContext provides.
+             * Again for security reasons with
+             * openFileInput(...) */
+            FileInputStream fIn = context.getApplicationContext().openFileInput(fileName);
+            InputStreamReader isr = new InputStreamReader(fIn);
+            /* Prepare a char-Array that will
+             * hold the chars we read back in. */
+            char[] inputBuffer = new char[textString.length()];
+            // Fill the Buffer with data from the file
+            isr.read(inputBuffer);
+            // Transform the chars to a String
+            String readString = new String(inputBuffer);
+            // Check if we read back the same chars that we had written out
+            isTheSame = textString.equals(readString);
+            if (isTheSame) {
+                lenghLastTextProjects = textString.length();
+            }
+            Log.i("File Reading stuff", "success = " + isTheSame);
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+        return isTheSame;
+    }
+
 
     public static String readOnFileNotes(String fileName, Context context) throws FileNotFoundException {
         String readString = null;
@@ -71,18 +172,18 @@ public class SaveOnFile {
             /* Prepare a char-Array that will
              * hold the chars we read back in. */
             char[] inputBuffer;
-            if (lenghLastText == -1) {
+            if (lenghLastTextNotes == -1) {
                 inputBuffer = new char[5000];
             } else {
-                inputBuffer = new char[lenghLastText];
+                inputBuffer = new char[lenghLastTextNotes];
             }
             // Fill the Buffer with data from the file
             isr.read(inputBuffer);
             // Transform the chars to a String
             readString = new String(inputBuffer);
-            if (lenghLastText == -1) {
+            if (lenghLastTextNotes == -1) {
                 readString = readString.substring(0, readString.lastIndexOf("/5.") + 3);
-                lenghLastText = readString.length();
+                lenghLastTextNotes = readString.length();
             }
         } catch (IOException ioe) {
             ioe.printStackTrace();
@@ -103,18 +204,50 @@ public class SaveOnFile {
             /* Prepare a char-Array that will
              * hold the chars we read back in. */
             char[] inputBuffer;
-            if (lenghLastText == -1) {
+            if (lenghLastTextProjectsID == -1) {
                 inputBuffer = new char[5000];
             } else {
-                inputBuffer = new char[lenghLastText];
+                inputBuffer = new char[lenghLastTextProjectsID];
             }
             // Fill the Buffer with data from the file
             isr.read(inputBuffer);
             // Transform the chars to a String
             readString = new String(inputBuffer);
-            if (lenghLastText == -1) {
+            if (lenghLastTextProjectsID == -1) {
                 readString = readString.substring(0, readString.lastIndexOf("_") + 2);
-                lenghLastText = readString.length();
+                lenghLastTextProjectsID = readString.length();
+            }
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+        return readString;
+    }
+
+    public static String readOnFileProjets(String fileName, Context context) throws FileNotFoundException {
+        String readString = null;
+        try {
+            //Reading the file back...
+            /* We have to use the openFileInput()-method
+             * the ActivityContext provides.
+             * Again for security reasons with
+             * openFileInput(...) */
+            FileInputStream fIn = context.getApplicationContext().openFileInput(fileName);
+            InputStreamReader isr = new InputStreamReader(fIn);
+            /* Prepare a char-Array that will
+             * hold the chars we read back in. */
+            char[] inputBuffer;
+            if (lenghLastTextProjects == -1) {
+                inputBuffer = new char[5000000];
+            } else {
+                inputBuffer = new char[lenghLastTextProjects];
+            }
+            // Fill the Buffer with data from the file
+            isr.read(inputBuffer);
+            // Transform the chars to a String
+            readString = new String(inputBuffer);
+            if (lenghLastTextProjects == -1) {
+                readString = readString.substring(0, readString.lastIndexOf("}") + 1);
+                lenghLastTextProjects = readString.length();
             }
         } catch (IOException ioe) {
             ioe.printStackTrace();
@@ -142,7 +275,7 @@ public class SaveOnFile {
         } else {
             textUpdated = textActuel + "\n " + "Projet " + titreProjet + " " + utilisateur + " a donné la note de " + note + "/5.";
         }
-        writeOnFile("PseudoJuryNotes", textUpdated, context);
+        writeOnFileNotes("PseudoJuryNotes", textUpdated, context);
     }
 
     public static String getNotes(Context context) throws FileNotFoundException {
@@ -150,11 +283,11 @@ public class SaveOnFile {
     }
 
     public static void formatNotes(Context context) {
-        writeOnFile("PseudoJuryNotes", "", context);
+        writeOnFileNotes("PseudoJuryNotes", "", context);
     }
 
     public static void formatProjetPseudoJuryID(Context context) {
-        writeOnFile("PseudoJuryProjetsID", "", context);
+        writeOnFileNotes("PseudoJuryProjetsID", "", context);
     }
 
     public static String getProjetPseudoJuryID(Context context) throws FileNotFoundException {
@@ -184,6 +317,40 @@ public class SaveOnFile {
                 textUpdated += projectID;
             }
         }
-        writeOnFile("PseudoJuryProjetsID", textUpdated, context);
+        writeOnFileProjectID("PseudoJuryProjetsID", textUpdated, context);
     }
+
+    public static ArrayList<Project> getProjets(Context context) throws FileNotFoundException {
+       String result = readOnFileProjets("ProjetsFull", context);
+        ArrayList<Project> projectList = new ArrayList<Project>();
+
+        try {
+            JSONArray allProjects = new JSONObject(result).getJSONArray("projects");
+            for(int i =0;i<allProjects.length();i++) {
+                String projectID = allProjects.getJSONObject(i).getString("projectId");
+                String title = allProjects.getJSONObject(i).getString("title");
+                String descrip = allProjects.getJSONObject(i).getString("descrip");
+                JSONObject supervisorO = allProjects.getJSONObject(i).getJSONObject("supervisor");
+                User supervisor = new User(supervisorO.getString("forename"),supervisorO.getString("surname"));
+                Boolean poster = allProjects.getJSONObject(i).getBoolean("poster");
+                int confid = allProjects.getJSONObject(i).getInt("confid");
+                JSONArray studentsAO = allProjects.getJSONObject(i).getJSONArray("students");
+                ArrayList<User> students = new ArrayList<User>();
+                for(int y = 0;y<studentsAO.length();y++) {
+                    students.add(new User(studentsAO.getJSONObject(y).getString("forename"),studentsAO.getJSONObject(y).getString("surname"),studentsAO.getJSONObject(y).getString("userId")));
+                }
+                projectList.add(new Project(projectID,title,descrip,supervisor,poster,confid,students));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return projectList;
+    }
+
+
+    public static void setProjets(String projets,Context context) {
+        writeOnFileProjects("ProjetsFull",projets,context);
+    }
+
+
 }
