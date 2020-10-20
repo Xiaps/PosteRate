@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import fr.eseo.mb.android.posterate.R;
+import fr.eseo.mb.android.posterate.data.model.LoggedInUser;
 import fr.eseo.mb.android.posterate.data.model.Project;
 import fr.eseo.mb.android.posterate.ui.projets.ProjectDetailActivity;
 import fr.eseo.mb.android.posterate.ui.projets.ProjetsFragment;
@@ -41,7 +42,7 @@ public class ProjectSummaryListViewAdapter extends RecyclerView.Adapter<ProjectS
         holder.posterTitle.setText(this.projectList.get(position).getTitle());
         holder.posterSupervisor.setText(this.projectList.get(position).getSupervisor().getSurname());
 
-        if(this.projectList.get(position).getConfid() < 1){
+        if(canBeShown(this.projectList.get(position))){
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -92,6 +93,17 @@ public class ProjectSummaryListViewAdapter extends RecyclerView.Adapter<ProjectS
         this.notifyDataSetChanged();
 
 
+    }
+
+    public boolean canBeShown(Project project) {
+        if(project.getConfid()<1) {
+            return true;
+        } else {
+            if(project.getSupervisor().getFullName().equals(LoggedInUser.getFullName())) {
+                return true;
+            }
+        }
+        return false;
     }
 
 

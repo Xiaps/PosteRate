@@ -7,7 +7,7 @@ public class LoggedInUser {
     public static String displayName;
     public  static String role;
     public  static String fullName;
-    public LoggedInUser(String token, String displayName, String role) {
+    public LoggedInUser(String token, String displayName) {
         this.token = token;
         this.displayName = displayName;
     }
