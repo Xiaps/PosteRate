@@ -32,9 +32,9 @@ public class LoginActivity extends Activity {
             public void onClick(View v) {
                 LoggedInUser.displayName = ed1.getText().toString();
                 //login(ed1.getText().toString(),ed2.getText().toString());
-                login("alberpat","w872o32HkYAO");
+                //login("alberpat","w872o32HkYAO");
                 //login("jpo","F8609vYJXZMn");
-                //login("aubinseb","Lsm5hs51s9ks");
+                login("aubinseb","Lsm5hs51s9ks");
             }
         });
         btn_pj.setOnClickListener(new View.OnClickListener() {

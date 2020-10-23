@@ -44,18 +44,20 @@ public class JurySummaryListViewAdapter extends RecyclerView.Adapter<JurySummary
         holder.juryNames.setText(juryNamesStr);
         holder.juryDate.setText(this.juryList.get(position).getDate());
 
-        /*holder.itemView.setOnClickListener(new View.OnClickListener() {
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(), JuryProjectActivity.class);
-                intent.putExtra("NBPROJECT",juryList.get(position).getProjects().size());
+                intent.putExtra("NBPROJECT", juryList.get(position).getProjects().size());
                 for(int i=0;i<juryList.get(position).getProjects().size();i++){
-                    intent.putExtra("PROJECT"+i,juryList.get(position).getProjects().get(i).getProjectId());
-                }
+                    intent.putExtra("IDPROJECT"+i,Integer.parseInt(juryList.get(position).getProjects().get(i).getProjectId()));
+                    System.out.println("======================================");
+                    System.out.println(juryList.get(position).getProjects().get(i).getProjectId());
+                    System.out.println("======================================");}
                 intent.putExtra("POSITION",position);
                 view.getContext().startActivity(intent);
             }
-        });*/
+        });
     }
 
     public int getItemCount(){
