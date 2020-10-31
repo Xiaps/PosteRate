@@ -7,6 +7,8 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,15 +34,32 @@ public class ProjectDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_project_detail);
         position = getIntent().getIntExtra("POSITION", 0);
+        int markable = getIntent().getIntExtra("MARKABLE",0);
         TextView projectDetailTitle = findViewById(R.id.poster_detail_title);
         TextView projectDetailDesc = findViewById(R.id.poster_detail_desc);
         TextView projectDetailStudents = findViewById(R.id.poster_detail_students);
         TextView projectDetailSupervisor = findViewById(R.id.poster_detail_super);
         ImageView posterDetailImage = findViewById(R.id.poster_detail_image);
+        TextView textViewNote = findViewById(R.id.textViewNote);
+        Button validerNote = findViewById(R.id.validerNote);
+        EditText note = findViewById(R.id.note);
 
         projectDetailTitle.setText(projectList.get(position).getTitle());
         projectDetailDesc.setText(projectList.get(position).getDescrip().substring(0,500)+"...");
 
+        System.out.println("=================================================================");
+        System.out.println(markable);
+        System.out.println("=================================================================");
+
+        if(markable==1){
+            textViewNote.setVisibility(View.VISIBLE);
+            validerNote.setVisibility(View.VISIBLE);
+            note.setVisibility(View.VISIBLE);
+        }else{
+            textViewNote.setVisibility(View.INVISIBLE);
+            validerNote.setVisibility(View.INVISIBLE);
+            note.setVisibility(View.INVISIBLE);
+        }
 
         String students = "";
         for (int i = 0; i < projectList.get(position).getStudents().size(); i++) {

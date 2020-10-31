@@ -53,6 +53,7 @@ public class JuryProjectActivity extends AppCompatActivity {
 
         int nbProjects = getIntent().getIntExtra("NBPROJECT",0);
         int id = getIntent().getIntExtra("IDPROJECT0",0);
+
         String ids="";
         for(int i=0;i<nbProjects;i++){
             //ids+=getIntent().getIntExtra("IDPROJECT"+i,0)+" ";

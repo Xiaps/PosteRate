@@ -41,6 +41,7 @@ public class JuryProjectsListViewAdapter extends RecyclerView.Adapter<JuryProjec
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(), ProjectDetailActivity.class);
+                intent.putExtra("MARKABLE",1);
                 intent.putExtra("POSITION",Integer.parseInt(juryProjectList.get(position).getProjectId()));
                 //intent.putExtra("PROJETS",projectList);
                 view.getContext().startActivity(intent);

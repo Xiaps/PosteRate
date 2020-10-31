@@ -49,6 +49,7 @@ public class JurySummaryListViewAdapter extends RecyclerView.Adapter<JurySummary
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(), JuryProjectActivity.class);
                 intent.putExtra("NBPROJECT", juryList.get(position).getProjects().size());
+
                 for(int i=0;i<juryList.get(position).getProjects().size();i++){
                     intent.putExtra("IDPROJECT"+i,Integer.parseInt(juryList.get(position).getProjects().get(i).getProjectId()));
                     System.out.println("======================================");

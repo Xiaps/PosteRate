@@ -48,6 +48,7 @@ public class ProjectSummaryListViewAdapter extends RecyclerView.Adapter<ProjectS
                 public void onClick(View view) {
                     Intent intent = new Intent(view.getContext(), ProjectDetailActivity.class);
                     intent.putExtra("POSITION",position);
+                    intent.putExtra("MARKABLE",0);
                     //intent.putExtra("PROJETS",projectList);
                     view.getContext().startActivity(intent);
                 }
