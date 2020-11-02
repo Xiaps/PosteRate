@@ -33,7 +33,6 @@ public class AsynchTaskGrade extends AsyncTask<URL, Void, String> {
         if (activeNetwork != null && activeNetwork.isConnectedOrConnecting()) {
 
             results = ComWebService.urlRequest(this.activity.getApplicationContext(), urls[0]);
-
             try {
                 String check = new JSONObject(results).getString("result");
                 Log.d("Check", check);

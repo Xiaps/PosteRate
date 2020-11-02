@@ -83,7 +83,7 @@ public class ProjectDetailActivity extends AppCompatActivity {
             public void onClick(View v) {
                 for (int i = 0; i < projectList.get(position).getStudents().size(); i++) {
                     try {
-                        new AsynchTaskGrade(this2).execute(new URL("https://172.24.5.16/pfe/webservice.php?q=NEWNT&user=" + LoggedInUser.getDisplayName() + ">&proj=" + projectList.get(position).getProjectId() + "&student=" + projectList.get(position).getStudents().get(i).getIdUser() + "+&note=" + note.getText().toString() + "token=" + LoggedInUser.getToken()));
+                        new AsynchTaskGrade(this2).execute(new URL("https://172.24.5.16/pfe/webservice.php?q=NEWNT&user=" + LoggedInUser.getDisplayName() + "&proj=" + projectList.get(position).getProjectId() + "&student=" + projectList.get(position).getStudents().get(i).getIdUser() + "&note=" + note.getText().toString() + "&token=" + LoggedInUser.getToken()));
                         System.out.println("==============");
                         System.out.println("Note : "+note.getText().toString()+" Pour "+projectList.get(position).getStudents().get(i).getFullName());
                     } catch (MalformedURLException e) {
