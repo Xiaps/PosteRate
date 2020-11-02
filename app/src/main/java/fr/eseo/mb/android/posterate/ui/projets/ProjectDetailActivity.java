@@ -93,11 +93,26 @@ public class ProjectDetailActivity extends AppCompatActivity {
                         new AsynchTaskGrade(this2).execute(new URL("https://172.24.5.16/pfe/webservice.php?q=NEWNT&user=" + LoggedInUser.getDisplayName() + "&proj=" + projectList.get(position).getProjectId() + "&student=" + projectList.get(position).getStudents().get(i).getIdUser() + "&note=" + note.getText().toString() + "&token=" + LoggedInUser.getToken()));
                         System.out.println("==============");
                         System.out.println("Note : "+note.getText().toString()+" Pour "+projectList.get(position).getStudents().get(i).getFullName());
+                        Toast.makeText(getApplicationContext(), "Note enregistrée",Toast.LENGTH_SHORT).show();
                     } catch (MalformedURLException e) {
                         e.printStackTrace();
+                        Toast.makeText(getApplicationContext(), "Erreur",Toast.LENGTH_SHORT).show();
                     }
                 }
-                Toast.makeText(getApplicationContext(), "Note enregistrée",Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+        btnSelection.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    SaveOnFile.addProjetPseudoJuryID(projectList.get(position).getProjectId(),this2.getApplicationContext());
+                    Toast.makeText(getApplicationContext(), "PseudoJury enregistré : ID " + projectList.get(position).getProjectId(),Toast.LENGTH_SHORT).show();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                    Toast.makeText(getApplicationContext(), "Erreur",Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

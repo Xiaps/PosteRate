@@ -321,25 +321,25 @@ public class SaveOnFile {
     }
 
     public static ArrayList<Project> getProjets(Context context) throws FileNotFoundException {
-       String result = readOnFileProjets("ProjetsFull", context);
+        String result = readOnFileProjets("ProjetsFull", context);
         ArrayList<Project> projectList = new ArrayList<Project>();
 
         try {
             JSONArray allProjects = new JSONObject(result).getJSONArray("projects");
-            for(int i =0;i<allProjects.length();i++) {
+            for (int i = 0; i < allProjects.length(); i++) {
                 String projectID = allProjects.getJSONObject(i).getString("projectId");
                 String title = allProjects.getJSONObject(i).getString("title");
                 String descrip = allProjects.getJSONObject(i).getString("descrip");
                 JSONObject supervisorO = allProjects.getJSONObject(i).getJSONObject("supervisor");
-                User supervisor = new User(supervisorO.getString("forename"),supervisorO.getString("surname"));
+                User supervisor = new User(supervisorO.getString("forename"), supervisorO.getString("surname"));
                 Boolean poster = allProjects.getJSONObject(i).getBoolean("poster");
                 int confid = allProjects.getJSONObject(i).getInt("confid");
                 JSONArray studentsAO = allProjects.getJSONObject(i).getJSONArray("students");
                 ArrayList<User> students = new ArrayList<User>();
-                for(int y = 0;y<studentsAO.length();y++) {
-                    students.add(new User(studentsAO.getJSONObject(y).getString("forename"),studentsAO.getJSONObject(y).getString("surname"),studentsAO.getJSONObject(y).getString("userId")));
+                for (int y = 0; y < studentsAO.length(); y++) {
+                    students.add(new User(studentsAO.getJSONObject(y).getString("forename"), studentsAO.getJSONObject(y).getString("surname"), studentsAO.getJSONObject(y).getString("userId")));
                 }
-                projectList.add(new Project(projectID,title,descrip,supervisor,poster,confid,students));
+                projectList.add(new Project(projectID, title, descrip, supervisor, poster, confid, students));
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -348,8 +348,26 @@ public class SaveOnFile {
     }
 
 
-    public static void setProjets(String projets,Context context) {
-        writeOnFileProjects("ProjetsFull",projets,context);
+    public static void setProjets(String projets, Context context) {
+        writeOnFileProjects("ProjetsFull", projets, context);
+    }
+
+
+    public static ArrayList<Project> getProjetsSelection(Context context) throws FileNotFoundException {
+        String stringIDs = getProjetPseudoJuryID(context);
+        String[] stringIDList = stringIDs.split("_");
+        ArrayList<Project> allProjets = getProjets(context);
+        ArrayList<Project> selectedProjets = new ArrayList<Project>();
+
+        for (int i = 0; i < allProjets.size(); i++) {
+            for (String ID : stringIDList) {
+                if (ID.equals(allProjets.get(i).getProjectId())) {
+                    selectedProjets.add(allProjets.get(i));
+                }
+            }
+        }
+
+        return selectedProjets;
     }
 
 
