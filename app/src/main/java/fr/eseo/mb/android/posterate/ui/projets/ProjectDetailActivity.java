@@ -51,6 +51,7 @@ public class ProjectDetailActivity extends AppCompatActivity {
         final TextView textViewNote = findViewById(R.id.textViewNote);
         Button validerNote = findViewById(R.id.validerNote);
         final EditText note = findViewById(R.id.note);
+        Button btnSelection = findViewById(R.id.btnSelection);
 
         projectDetailTitle.setText(projectList.get(position).getTitle());
         projectDetailDesc.setText(projectList.get(position).getDescrip().substring(0, 500) + "...");
@@ -58,6 +59,12 @@ public class ProjectDetailActivity extends AppCompatActivity {
         System.out.println("=================================================================");
         System.out.println(markable);
         System.out.println("=================================================================");
+
+        if(LoggedInUser.role.equals("Communication Service Member")){
+            btnSelection.setVisibility(View.VISIBLE);
+        }else{
+            btnSelection.setVisibility(View.INVISIBLE);
+        }
 
         if (markable == 1) {
             textViewNote.setVisibility(View.VISIBLE);
