@@ -36,7 +36,6 @@ public class JuryProjectActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_jury_project);
         ArrayList<Jury> juryList = JurySummaryListViewAdapter.juryList;
-        TextView txtTest = (TextView) findViewById(R.id.testJuryProjets);
         juryProjectList = new ArrayList<>();
 
 

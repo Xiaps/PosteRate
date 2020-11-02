@@ -6,4 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".ui.pseudoJury.MainPseudoJuryActivity">
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/list_pseudoJury_project"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="94dp"
+        tools:layout_editor_absoluteY="52dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
