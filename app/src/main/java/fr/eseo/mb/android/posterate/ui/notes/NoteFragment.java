@@ -10,7 +10,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.io.FileNotFoundException;
+
 import fr.eseo.mb.android.posterate.R;
+import fr.eseo.mb.android.posterate.controller.SaveOnFile;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -53,12 +56,11 @@ public class NoteFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         TextView notesPseudoJury = (TextView) getView().findViewById(R.id.notesPseudoJury);
-
-
-        /////////////// GUIGUIII
-
-
-        notesPseudoJury.setText("coucou");
+        try {
+            notesPseudoJury.setText(SaveOnFile.getNotes(this.getContext()));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
 

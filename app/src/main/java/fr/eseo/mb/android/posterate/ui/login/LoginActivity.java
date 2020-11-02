@@ -6,12 +6,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import java.io.FileNotFoundException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import fr.eseo.mb.android.posterate.MainActivity;
 import fr.eseo.mb.android.posterate.R;
 import fr.eseo.mb.android.posterate.controller.AsynchTaskRole;
 import fr.eseo.mb.android.posterate.controller.AsynchTaskToken;
+import fr.eseo.mb.android.posterate.controller.SaveOnFile;
 import fr.eseo.mb.android.posterate.data.model.LoggedInUser;
 import fr.eseo.mb.android.posterate.ui.pseudoJury.MainPseudoJuryActivity;
 
@@ -40,6 +43,13 @@ public class LoginActivity extends Activity {
         btn_pj.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                /*
+                try {
+                    System.out.println("=========================");
+                    System.out.println(SaveOnFile.getProjets(getApplicationContext()).get(5).getTitle());
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }*/
                 Intent intent = new Intent(LoginActivity.this, MainPseudoJuryActivity.class);
                 startActivity(intent);
             }

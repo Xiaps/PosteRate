@@ -256,7 +256,7 @@ public class SaveOnFile {
     }
 
     public static void addNote(int note, String utilisateur, String titreProjet, Context context) throws FileNotFoundException {
-        String textActuel = readOnFileProjetPseudojuryID("PseudoJuryNotes", context);
+        String textActuel = readOnFileNotes("PseudoJuryNotes", context);
         String textUpdated = "";
         if (note > 5) {
             note = 5;
