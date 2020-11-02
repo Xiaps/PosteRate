@@ -15,13 +15,14 @@ import java.net.URL;
 
 import fr.eseo.mb.android.posterate.data.model.LoggedInUser;
 import fr.eseo.mb.android.posterate.ui.login.LoginActivity;
+import fr.eseo.mb.android.posterate.ui.projets.ProjectDetailActivity;
 
 public class AsynchTaskGrade extends AsyncTask<URL, Void, String> {
 
 
-    private Activity activity;
+    private ProjectDetailActivity activity;
 
-    public AsynchTaskGrade(Activity activity) {
+    public AsynchTaskGrade(ProjectDetailActivity activity) {
         this.activity = activity;
     }
     /* access modifiers changed from: protected */
