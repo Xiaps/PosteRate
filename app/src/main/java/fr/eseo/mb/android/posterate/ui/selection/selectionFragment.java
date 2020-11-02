@@ -2,13 +2,20 @@ package fr.eseo.mb.android.posterate.ui.selection;
 
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
 
 import fr.eseo.mb.android.posterate.R;
+import fr.eseo.mb.android.posterate.controller.SaveOnFile;
+import fr.eseo.mb.android.posterate.data.model.Project;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -56,6 +63,25 @@ public class selectionFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        TextView projetsSelectionnesTxt = (TextView) getView().findViewById(R.id.projets_selectionnes);
+        String prjSelec ="";
+        try {
+            ArrayList<Project> projetsSelectionnes = SaveOnFile.getProjetsSelection(this.getContext());
+
+            for(int i = 0;i<projetsSelectionnes.size();i++){
+                prjSelec+=projetsSelectionnes.get(i).getTitle()+"\n\n";
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+
+        projetsSelectionnesTxt.setText(prjSelec);
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

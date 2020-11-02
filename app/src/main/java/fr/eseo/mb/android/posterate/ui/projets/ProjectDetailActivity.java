@@ -52,6 +52,8 @@ public class ProjectDetailActivity extends AppCompatActivity {
         Button validerNote = findViewById(R.id.validerNote);
         final EditText note = findViewById(R.id.note);
         Button btnSelection = findViewById(R.id.btnSelection);
+        TextView textViewName = findViewById(R.id.nameTxt);
+        EditText name = findViewById(R.id.name);
 
         projectDetailTitle.setText(projectList.get(position).getTitle());
         projectDetailDesc.setText(projectList.get(position).getDescrip().substring(0, 500) + "...");
@@ -59,6 +61,14 @@ public class ProjectDetailActivity extends AppCompatActivity {
         System.out.println("=================================================================");
         System.out.println(markable);
         System.out.println("=================================================================");
+
+        name.setVisibility(View.INVISIBLE);
+        textViewName.setVisibility(View.INVISIBLE);
+
+        if(LoggedInUser.role.equals("pseudoJury")){
+            name.setVisibility(View.VISIBLE);
+            textViewName.setVisibility(View.VISIBLE);
+        }
 
         if(LoggedInUser.role.equals("Communication Service Member")){
             btnSelection.setVisibility(View.VISIBLE);
@@ -88,17 +98,26 @@ public class ProjectDetailActivity extends AppCompatActivity {
         validerNote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                for (int i = 0; i < projectList.get(position).getStudents().size(); i++) {
-                    try {
-                        new AsynchTaskGrade(this2).execute(new URL("https://172.24.5.16/pfe/webservice.php?q=NEWNT&user=" + LoggedInUser.getDisplayName() + "&proj=" + projectList.get(position).getProjectId() + "&student=" + projectList.get(position).getStudents().get(i).getIdUser() + "&note=" + note.getText().toString() + "&token=" + LoggedInUser.getToken()));
-                        System.out.println("==============");
-                        System.out.println("Note : "+note.getText().toString()+" Pour "+projectList.get(position).getStudents().get(i).getFullName());
-                        Toast.makeText(getApplicationContext(), "Note enregistrée",Toast.LENGTH_SHORT).show();
-                    } catch (MalformedURLException e) {
-                        e.printStackTrace();
-                        Toast.makeText(getApplicationContext(), "Erreur",Toast.LENGTH_SHORT).show();
+                if(LoggedInUser.role.equals("pseudoJury")){
+
+
+                    //////////////////////////////////////////GUIGUIIII////////////////////////////////////////////////
+
+
+                }else{
+                    for (int i = 0; i < projectList.get(position).getStudents().size(); i++) {
+                        try {
+                            new AsynchTaskGrade(this2).execute(new URL("https://172.24.5.16/pfe/webservice.php?q=NEWNT&user=" + LoggedInUser.getDisplayName() + "&proj=" + projectList.get(position).getProjectId() + "&student=" + projectList.get(position).getStudents().get(i).getIdUser() + "&note=" + note.getText().toString() + "&token=" + LoggedInUser.getToken()));
+                            System.out.println("==============");
+                            System.out.println("Note : "+note.getText().toString()+" Pour "+projectList.get(position).getStudents().get(i).getFullName());
+                            Toast.makeText(getApplicationContext(), "Note enregistrée",Toast.LENGTH_SHORT).show();
+                        } catch (MalformedURLException e) {
+                            e.printStackTrace();
+                            Toast.makeText(getApplicationContext(), "Erreur",Toast.LENGTH_SHORT).show();
+                        }
                     }
                 }
+
 
             }
         });

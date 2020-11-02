@@ -2,11 +2,13 @@ package fr.eseo.mb.android.posterate.ui.notes;
 
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import fr.eseo.mb.android.posterate.R;
 
@@ -49,12 +51,28 @@ public class NoteFragment extends Fragment {
     }
 
     @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        TextView notesPseudoJury = (TextView) getView().findViewById(R.id.notesPseudoJury);
+
+
+        /////////////// GUIGUIII
+
+
+        notesPseudoJury.setText("coucou");
+    }
+
+
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+
+
     }
 
     @Override
