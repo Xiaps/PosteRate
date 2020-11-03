@@ -21,9 +21,6 @@ import fr.eseo.mb.android.posterate.data.model.LoggedInUser;
 
 public class MainActivity extends AppCompatActivity {
 
-    // test 1
-    // Pong
-
     private AppBarConfiguration mAppBarConfiguration;
 
     @Override
@@ -62,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
         } else {
             navigationView.getMenu().getItem(3).setVisible(false);
             navigationView.getMenu().getItem(4).setVisible(false);
+            navigationView.getMenu().getItem(2).setVisible(false);
         }
     }
 
